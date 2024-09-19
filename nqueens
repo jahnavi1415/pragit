@@ -1,0 +1,88 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+   
+    static List<List<List<Integer>>> y= new ArrayList<>();
+     static List<List<Integer>> z= new ArrayList<>();
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		boolean[][] board={
+		    {false,false,false,false},
+		    {false,false,false,false},
+		    {false,false,false,false},
+		    {false,false,false,false}
+		};
+		System.out.println(nqueen(0,0,new ArrayList<>(),board));
+			System.out.println(y);
+	}
+	
+	static List<List<Integer>> x= new ArrayList<>();
+	static int nqueen(int r,int c,List<List<Integer>> path,boolean[][] board)
+	{
+	     if(r==board.length)
+	     {
+	         y.add(new ArrayList<>(path));
+	         return 1;
+	     }
+	   
+	     
+	     int t=0;
+	     for(int i=0;i<board.length;i++)
+	     {
+	         if(isSafe(board,r,i))
+	         {
+	           board[r][i]=true;
+	            List<Integer> x=Arrays.asList(r,i);
+	            path.add(x);
+	              t=t+nqueen(r+1,i,new ArrayList<>(path),board);
+	                board[r][i]=false;
+	                 path.remove(path.size()-1);
+	         }
+	    
+	   
+	     }
+	     
+	 return t;
+	}
+	static boolean isSafe(boolean[][] board,int r,int c)
+	{
+	    int ri=Math.min(r,board.length-1-c);
+	    int le=Math.min(r,c);
+	    //straight up
+	    for(int j=0;j<r;j++)
+	    {
+	        if(board[j][c])
+	        {
+	            return false;
+	        }
+	    }
+	    //cross left
+	    
+	     for(int j=1;j<=le;j++)
+	    {
+	        if(board[r-j][c-j])
+	        {
+	            return false;
+	        }
+	
+	        
+	    }
+	    //cross right
+	    for(int j=1;j<=ri;j++)
+	    {
+	        if(board[r-j][c+j])
+	        {
+	            return false;
+	        }
+	        
+	    }
+	    return true;
+	}
+}
