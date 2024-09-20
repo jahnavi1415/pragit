@@ -1,0 +1,101 @@
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+public class Main
+{
+   
+    static List<List<List<Integer>>> y= new ArrayList<>();
+     static List<List<Integer>> z= new ArrayList<>();
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		boolean[][] board={
+		  {false,false,false},
+		      {false,false,false},
+		 
+		   {false,false,false}
+		   
+		};
+	//	System.out.println(nqueen(0,0,new ArrayList<>(),board));
+	System.out.println(nknight(0,0,new ArrayList<>(),board,3));
+			System.out.println(y);
+	}
+static	int t=0;
+	static int nknight(int r,int c,List<List<Integer>> path,boolean[][] board,int knights)
+	{
+	    if(knights==0)
+	    {
+	         y.add(new ArrayList<>(path));
+	         return 1;
+	        
+	    }
+	     
+	       if( r==board.length-1 && c==board.length)
+	     {
+	         return 0;
+	     }
+	      
+	     if( c==board.length)
+	     {
+	        t=t+nknight(r+1,0,new ArrayList<>(path),board,knights);
+	        return 0;
+	     }
+	         if(isSafek(board,r,c))
+	         {
+	           board[r][c]=true;
+	           knights--;
+	            List<Integer> x=Arrays.asList(r,c);
+	            path.add(x);
+	              t=t+nknight(r,c+1,new ArrayList<>(path),board,knights);
+	                board[r][c]=false;
+	                knights++;
+	                 path.remove(path.size()-1);
+	         }
+	    
+	   t=t+nknight(r,c+1,new ArrayList<>(path),board,knights);
+	     
+	     
+	 return t;
+	}
+	static boolean isSafek(boolean[][] board,int r,int c)
+	{
+	  
+	            if(r-1>=0 && c+2<board.length)
+	   {
+	       if(board[r-1][c+2])
+	       {
+	           return false;
+	       }
+	   }
+	    if(r-1>=0 && c-2>=0)
+	   {
+	       if(board[r-1][c-2])
+	       {
+	           return false;
+	       }
+	   }
+	    if(r+1<board.length && c+2<board.length)
+	   {
+	       if(board[r+1][c+2])
+	       {
+	           return false;
+	       }
+	   }
+	    if(r+1<board.length && c-2>=0)
+	   {
+	       if(board[r+1][c-2])
+	       {
+	           return false;
+	       }
+	   }
+	    
+	    return true;
+	  
+	}
+
+	
+}
